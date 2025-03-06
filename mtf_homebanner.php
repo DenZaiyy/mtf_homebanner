@@ -55,24 +55,28 @@ class Mtf_HomeBanner extends Module
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_1', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_1', '');
         Configuration::updateValue('MTF_HOMEBANNER_LINK_1', '');
+        Configuration::updateValue('MTF_HOMEBANNER_LINK_1_TITLE', '');
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_1_VISIBLE', 0);
 
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_2', null);
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_2', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_2', '');
         Configuration::updateValue('MTF_HOMEBANNER_LINK_2', '');
+        Configuration::updateValue('MTF_HOMEBANNER_LINK_2_TITLE', '');
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_2_VISIBLE', 0);
 
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_3', null);
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_3', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_3', '');
         Configuration::updateValue('MTF_HOMEBANNER_LINK_3', '');
+        Configuration::updateValue('MTF_HOMEBANNER_LINK_3_TITLE', '');
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_3_VISIBLE', 0);
 
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_4', null);
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_4', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_4', '');
         Configuration::updateValue('MTF_HOMEBANNER_LINK_4', '');
+        Configuration::updateValue('MTF_HOMEBANNER_LINK_4_TITLE', '');
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_4_VISIBLE', 0);
 
         Configuration::updateValue('MTF_HOMEBANNER_DISPLAY', 'grid');
@@ -95,24 +99,28 @@ class Mtf_HomeBanner extends Module
         Configuration::deleteByName('MTF_HOMEBANNER_TITLE_1');
         Configuration::deleteByName('MTF_HOMEBANNER_CAPTION_1');
         Configuration::deleteByName('MTF_HOMEBANNER_LINK_1');
+        Configuration::deleteByName('MTF_HOMEBANNER_LINK_1_TITLE');
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_1_VISIBLE');
 
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_2');
         Configuration::deleteByName('MTF_HOMEBANNER_TITLE_2');
         Configuration::deleteByName('MTF_HOMEBANNER_CAPTION_2');
         Configuration::deleteByName('MTF_HOMEBANNER_LINK_2');
+        Configuration::deleteByName('MTF_HOMEBANNER_LINK_2_TITLE');
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_2_VISIBLE');
 
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_3');
         Configuration::deleteByName('MTF_HOMEBANNER_TITLE_3');
         Configuration::deleteByName('MTF_HOMEBANNER_CAPTION_3');
         Configuration::deleteByName('MTF_HOMEBANNER_LINK_3');
+        Configuration::deleteByName('MTF_HOMEBANNER_LINK_3_TITLE');
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_3_VISIBLE');
 
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_4');
         Configuration::deleteByName('MTF_HOMEBANNER_TITLE_4');
         Configuration::deleteByName('MTF_HOMEBANNER_CAPTION_4');
         Configuration::deleteByName('MTF_HOMEBANNER_LINK_4');
+        Configuration::deleteByName('MTF_HOMEBANNER_LINK_4_TITLE');
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_4_VISIBLE');
 
         Configuration::deleteByName('MTF_HOMEBANNER_DISPLAY');
@@ -265,6 +273,7 @@ class Mtf_HomeBanner extends Module
                     'title' => Configuration::get('MTF_HOMEBANNER_TITLE_' . $i),
                     'caption' => Configuration::get('MTF_HOMEBANNER_CAPTION_' . $i),
                     'link' => Configuration::get('MTF_HOMEBANNER_LINK_' . $i),
+                    'linkTitle' => Configuration::get('MTF_HOMEBANNER_LINK_' . $i . '_TITLE'),
                 ];
                 $activeBanners++;
             }

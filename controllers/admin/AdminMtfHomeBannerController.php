@@ -173,12 +173,12 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                         'type' => 'select',
                         'label' => $this->l('Number of Columns'),
                         'name' => 'MTF_HOMEBANNER_DISPLAY_COLUMN',
+                        'id' => 'mtf-column-select',
                         'options' => [
                             'query' => [
                                 ['id' => '1', 'name' => $this->l('1 Column')],
                                 ['id' => '2', 'name' => $this->l('2 Columns')],
                                 ['id' => '3', 'name' => $this->l('3 Columns')],
-                                ['id' => '4', 'name' => $this->l('4 Columns')],
                             ],
                             'id' => 'id',
                             'name' => 'name',
@@ -228,6 +228,11 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                         'label' => $this->l('Banner 1 Link'),
                         'name' => 'MTF_HOMEBANNER_LINK_1',
                     ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Banner 1 Link Title'),
+                        'name' => 'MTF_HOMEBANNER_LINK_1_TITLE',
+                    ],
 
                     // Banner 2
                     [
@@ -271,6 +276,11 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                         'type' => 'text',
                         'label' => $this->l('Banner 2 Link'),
                         'name' => 'MTF_HOMEBANNER_LINK_2',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Banner 2 Link Title'),
+                        'name' => 'MTF_HOMEBANNER_LINK_2_TITLE',
                     ],
 
                     // Banner 3
@@ -316,6 +326,11 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                         'label' => $this->l('Banner 3 Link'),
                         'name' => 'MTF_HOMEBANNER_LINK_3',
                     ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Banner 3 Link Title'),
+                        'name' => 'MTF_HOMEBANNER_LINK_3_TITLE',
+                    ],
 
                     // Banner 4
                     [
@@ -359,6 +374,11 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                         'type' => 'text',
                         'label' => $this->l('Banner 4 Link'),
                         'name' => 'MTF_HOMEBANNER_LINK_4',
+                    ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->l('Banner 4 Link Title'),
+                        'name' => 'MTF_HOMEBANNER_LINK_4_TITLE',
                     ],
                 ],
                 'submit' => [
@@ -439,21 +459,27 @@ class AdminMtfHomeBannerController extends ModuleAdminController
             'MTF_HOMEBANNER_TITLE_1' => Configuration::get('MTF_HOMEBANNER_TITLE_1'),
             'MTF_HOMEBANNER_CAPTION_1' => Configuration::get('MTF_HOMEBANNER_CAPTION_1'),
             'MTF_HOMEBANNER_LINK_1' => Configuration::get('MTF_HOMEBANNER_LINK_1'),
+            'MTF_HOMEBANNER_LINK_1_TITLE' => Configuration::get('MTF_HOMEBANNER_LINK_1_TITLE'),
 
             'MTF_HOMEBANNER_IMAGE_2_VISIBLE' => Configuration::get('MTF_HOMEBANNER_IMAGE_2_VISIBLE'),
             'MTF_HOMEBANNER_TITLE_2' => Configuration::get('MTF_HOMEBANNER_TITLE_2'),
             'MTF_HOMEBANNER_CAPTION_2' => Configuration::get('MTF_HOMEBANNER_CAPTION_2'),
             'MTF_HOMEBANNER_LINK_2' => Configuration::get('MTF_HOMEBANNER_LINK_2'),
+            'MTF_HOMEBANNER_LINK_2_TITLE' => Configuration::get('MTF_HOMEBANNER_LINK_2_TITLE'),
+
 
             'MTF_HOMEBANNER_IMAGE_3_VISIBLE' => Configuration::get('MTF_HOMEBANNER_IMAGE_3_VISIBLE'),
             'MTF_HOMEBANNER_TITLE_3' => Configuration::get('MTF_HOMEBANNER_TITLE_3'),
             'MTF_HOMEBANNER_CAPTION_3' => Configuration::get('MTF_HOMEBANNER_CAPTION_3'),
             'MTF_HOMEBANNER_LINK_3' => Configuration::get('MTF_HOMEBANNER_LINK_3'),
+            'MTF_HOMEBANNER_LINK_3_TITLE' => Configuration::get('MTF_HOMEBANNER_LINK_3_TITLE'),
+
 
             'MTF_HOMEBANNER_IMAGE_4_VISIBLE' => Configuration::get('MTF_HOMEBANNER_IMAGE_4_VISIBLE'),
             'MTF_HOMEBANNER_TITLE_4' => Configuration::get('MTF_HOMEBANNER_TITLE_4'),
             'MTF_HOMEBANNER_CAPTION_4' => Configuration::get('MTF_HOMEBANNER_CAPTION_4'),
             'MTF_HOMEBANNER_LINK_4' => Configuration::get('MTF_HOMEBANNER_LINK_4'),
+            'MTF_HOMEBANNER_LINK_4_TITLE' => Configuration::get('MTF_HOMEBANNER_LINK_4_TITLE'),
         ];
     }
 }
