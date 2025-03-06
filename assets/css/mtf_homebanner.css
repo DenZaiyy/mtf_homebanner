@@ -1,0 +1,197 @@
+/**
+ * 2023-2024 MTFibertech
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ */
+
+.mtf-homebanner-container {
+    margin-bottom: 2rem;
+}
+
+/* Grid Layout */
+.mtf-homebanner-grid {
+    display: grid;
+    grid-gap: 20px;
+    width: 100%;
+}
+
+.mtf-homebanner-grid.cols-1 {
+    grid-template-columns: 1fr;
+}
+
+.mtf-homebanner-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.mtf-homebanner-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.mtf-homebanner-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Banner Items */
+.mtf-banner-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mtf-banner-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mtf-banner-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+}
+
+.mtf-banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+.mtf-banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.01),
+        rgba(0, 0, 0, 0.7)
+    );
+    color: #fff;
+}
+
+.mtf-banner-item:hover .mtf-banner-content {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.8)
+    );
+}
+
+.mtf-banner-title {
+    margin: 0 0 8px 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 80%;
+}
+
+.mtf-banner-caption {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.mtf-banner-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.mtf-banner-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffd300;
+    color: #000;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.mtf-banner-button:hover {
+    background-color: #ffe44d;
+    transform: translateY(-2px);
+}
+
+.mtf-banner-button-icon {
+    margin-left: 8px;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+/* Slider Layout */
+.mtf-homebanner-slider {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.mtf-slider-item {
+    padding: 0 10px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .mtf-homebanner-grid.cols-4,
+    .mtf-homebanner-grid.cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mtf-banner-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .mtf-banner-image {
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 575px) {
+    .mtf-homebanner-grid.cols-4,
+    .mtf-homebanner-grid.cols-3,
+    .mtf-homebanner-grid.cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .mtf-banner-title {
+        font-size: 1.3rem;
+    }
+
+    .mtf-banner-caption {
+        font-size: 0.9rem;
+    }
+
+    .mtf-banner-image {
+        min-height: 200px;
+    }
+}
+
+/* Handle special case of 1-2 banners in 3-4 column layout */
+.mtf-homebanner-grid.cols-3:has(.mtf-banner-item:only-child),
+.mtf-homebanner-grid.cols-3:has(.mtf-banner-item:nth-child(2):last-child),
+.mtf-homebanner-grid.cols-4:has(.mtf-banner-item:only-child),
+.mtf-homebanner-grid.cols-4:has(.mtf-banner-item:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+}
