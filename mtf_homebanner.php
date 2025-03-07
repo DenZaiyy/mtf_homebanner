@@ -51,7 +51,7 @@ class Mtf_HomeBanner extends Module
      */
     public function install()
     {
-        Configuration::updateValue('MTF_HOMEBANNER_ENABLE', 0);
+        Configuration::updateValue('MTF_HOMEBANNER_ENABLE', 1);
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_1', null);
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_1', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_1', '');
