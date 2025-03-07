@@ -218,14 +218,45 @@
     height: 20px;
 }
 
-/* Slider Layout */
+/* Add these styles to your existing CSS */
 .mtf-homebanner-slider {
     width: 100%;
     margin: 0 auto;
 }
 
 .mtf-slider-item {
-    padding: 0 10px;
+    padding: 0;
+    height: 400px; /* Set a fixed height for all slider items */
+}
+
+.mtf-slider-item .mtf-banner-image {
+    height: 100%;
+    position: relative;
+}
+
+.mtf-slider-item .mtf-banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This is key: ensures images cover the container without distortion */
+    object-position: center; /* Centers the image */
+}
+
+/* Fix for Slick slider */
+.slick-track {
+    display: flex !important;
+    gap: 10px;
+}
+
+.slick-slide {
+    height: inherit !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.slick-slide > div {
+    width: 100%;
+    height: 100%;
 }
 
 /* Responsive */

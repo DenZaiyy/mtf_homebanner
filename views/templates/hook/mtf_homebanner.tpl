@@ -59,7 +59,7 @@
                 {/foreach}
             </div>
         {else}
-            <div class="mtf-homebanner-slider">
+            <div class="mtf-homebanner-slider" data-columns="{$display_columns}">
                 {foreach from=$banners item=banner}
                     <div class="mtf-slider-item">
                         {if $banner.link}
@@ -67,7 +67,7 @@
                             {/if}
                             <div class="mtf-banner-image">
                                 <img src="{$banner_path}{$banner.image}" alt="{$banner.title|escape:'htmlall':'UTF-8'}"
-                                    class="img-fluid" loading="lazy">
+                                    loading="lazy">
                                 <div class="mtf-banner-content">
                                     <div>
                                         {if $banner.title}
@@ -80,7 +80,11 @@
                                     {if $banner.link}
                                         <div class="mtf-banner-button-container">
                                             <span class="mtf-banner-button">
-                                                Voir les produits
+                                                {if $banner.link_title}
+                                                    {$banner.link_title}
+                                                {else}
+                                                    Voir les produits
+                                                {/if}
                                                 <span class="mtf-banner-button-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                                                         <path fill="none" stroke="currentColor" stroke-linecap="round"
@@ -100,42 +104,4 @@
             </div>
         {/if}
     </div>
-
-    {if $display_type == 'slider'}
-        <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
-                $('.mtf-homebanner-slider').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: {$display_columns},
-                    slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 5000,
-                    responsive: [{
-                            breakpoint: 1024,
-                            settings: {
-                                slidesToShow: Math.min({$display_columns}, 3),
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: Math.min({$display_columns}, 2),
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 576,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
-                        }
-                    ]
-                });
-            });
-        </script>
-    {/if}
 {/if}

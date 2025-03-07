@@ -82,7 +82,9 @@ class AdminMtfHomeBannerController extends ModuleAdminController
             'id_language' => $this->context->language->id,
         ];
 
-        return $helper->generateForm([$this->getConfigForm()]);
+        $form = $this->getConfigForm();
+
+        return $helper->generateForm($form['forms']);
     }
 
     /**
@@ -143,267 +145,198 @@ class AdminMtfHomeBannerController extends ModuleAdminController
         }
     }
 
+    protected function getConfigForm()
+    {
+        $generalSettings = [
+            [
+                'type' => 'switch',
+                'label' => $this->l('Enable module'),
+                'name' => 'MTF_HOMEBANNER_ENABLE',
+                'is_bool' => true,
+                'values' => [
+                    [
+                        'id' => 'active_on',
+                        'value' => true,
+                        'label' => $this->l('Enabled')
+                    ],
+                    [
+                        'id' => 'active_off',
+                        'value' => false,
+                        'label' => $this->l('Disabled')
+                    ]
+                ],
+            ],
+            [
+                'type' => 'select',
+                'label' => $this->l('Display Layout'),
+                'name' => 'MTF_HOMEBANNER_DISPLAY',
+                'options' => [
+                    'query' => [
+                        ['id' => 'grid', 'name' => $this->l('Grid')],
+                        ['id' => 'slider', 'name' => $this->l('Slider')],
+                    ],
+                    'id' => 'id',
+                    'name' => 'name',
+                ],
+            ],
+            [
+                'type' => 'select',
+                'label' => $this->l('Number of Columns'),
+                'name' => 'MTF_HOMEBANNER_DISPLAY_COLUMN',
+                'options' => [
+                    'query' => [
+                        ['id' => '1', 'name' => $this->l('1 Column')],
+                        ['id' => '2', 'name' => $this->l('2 Columns')],
+                        ['id' => '3', 'name' => $this->l('3 Columns')]
+                    ],
+                    'id' => 'id',
+                    'name' => 'name',
+                ],
+            ],
+        ];
+
+        // Create a form array that will hold all our tabs
+        $form = [
+            'tabs' => [
+                'general' => $this->l('General Settings'),
+                'banner1' => $this->l('Banner 1'),
+                'banner2' => $this->l('Banner 2'),
+                'banner3' => $this->l('Banner 3'),
+                'banner4' => $this->l('Banner 4'),
+            ],
+            'forms' => [
+                // General settings tab
+                [
+                    'form' => [
+                        'legend' => [
+                            'title' => $this->l('General Settings'),
+                            'icon' => 'icon-cogs',
+                        ],
+                        'input' => $generalSettings,
+                        'submit' => [
+                            'title' => $this->l('Save'),
+                            'name' => 'submitMtf_HomeBannerModule'
+                        ],
+                    ]
+                ],
+                // Banner 1 tab
+                [
+                    'form' => [
+                        'legend' => [
+                            'title' => $this->l('Banner 1 Settings'),
+                            'icon' => 'icon-picture',
+                        ],
+                        'input' => $this->getBannerInputs(1),
+                        'submit' => [
+                            'title' => $this->l('Save'),
+                            'name' => 'submitMtf_HomeBannerModule'
+                        ],
+                    ]
+                ],
+                // Banner 2 tab
+                [
+                    'form' => [
+                        'legend' => [
+                            'title' => $this->l('Banner 2 Settings'),
+                            'icon' => 'icon-picture',
+                        ],
+                        'input' => $this->getBannerInputs(2),
+                        'submit' => [
+                            'title' => $this->l('Save'),
+                            'name' => 'submitMtf_HomeBannerModule'
+                        ],
+                    ]
+                ],
+                // Banner 3 tab
+                [
+                    'form' => [
+                        'legend' => [
+                            'title' => $this->l('Banner 3 Settings'),
+                            'icon' => 'icon-picture',
+                        ],
+                        'input' => $this->getBannerInputs(3),
+                        'submit' => [
+                            'title' => $this->l('Save'),
+                            'name' => 'submitMtf_HomeBannerModule'
+                        ],
+                    ]
+                ],
+                // Banner 4 tab
+                [
+                    'form' => [
+                        'legend' => [
+                            'title' => $this->l('Banner 4 Settings'),
+                            'icon' => 'icon-picture',
+                        ],
+                        'input' => $this->getBannerInputs(4),
+                        'submit' => [
+                            'title' => $this->l('Save'),
+                            'name' => 'submitMtf_HomeBannerModule'
+                        ],
+                    ]
+                ],
+            ]
+        ];
+
+        return $form;
+    }
+
     /**
-     * Create the structure of your form
+     * Get banner inputs for a specific banner
+     * 
+     * @param int $num Banner number
+     * @return array Banner input fields
      */
-    private function getConfigForm()
+    private function getBannerInputs($num)
     {
         return [
-            'form' => [
-                'legend' => [
-                    'title' => $this->l('Home Banners Settings'),
-                    'icon' => 'icon-cogs',
+            [
+                'type' => 'switch',
+                'label' => $this->l('Display Banner ' . $num),
+                'name' => 'MTF_HOMEBANNER_IMAGE_' . $num . '_VISIBLE',
+                'is_bool' => true,
+                'values' => [
+                    [
+                        'id' => 'active_on',
+                        'value' => true,
+                        'label' => $this->l('Enabled')
+                    ],
+                    [
+                        'id' => 'active_off',
+                        'value' => false,
+                        'label' => $this->l('Disabled')
+                    ]
                 ],
-                'input' => [
-                    // Enable banners
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Enable module'),
-                        'name' => 'MTF_HOMEBANNER_ENABLE',
-                        'is_bool' => true,
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled')
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-
-                    // Layout configuration
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('Display Layout'),
-                        'name' => 'MTF_HOMEBANNER_DISPLAY',
-                        'options' => [
-                            'query' => [
-                                ['id' => 'grid', 'name' => $this->l('Grid')],
-                                ['id' => 'slider', 'name' => $this->l('Slider')],
-                            ],
-                            'id' => 'id',
-                            'name' => 'name',
-                        ],
-                    ],
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('Number of Columns'),
-                        'name' => 'MTF_HOMEBANNER_DISPLAY_COLUMN',
-                        'id' => 'mtf-column-select',
-                        'options' => [
-                            'query' => [
-                                ['id' => '1', 'name' => $this->l('1 Column')],
-                                ['id' => '2', 'name' => $this->l('2 Columns')],
-                                ['id' => '3', 'name' => $this->l('3 Columns')],
-                            ],
-                            'id' => 'id',
-                            'name' => 'name',
-                        ],
-                    ],
-
-                    // Banner 1
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Display Banner 1'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_1_VISIBLE',
-                        'is_bool' => true,
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled')
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-                    [
-                        'type' => 'file',
-                        'label' => $this->l('Banner 1 Image'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_1',
-                        'display_image' => true,
-                        'image' => $this->displayCurrentBannerImage(1),
-                        'desc' => $this->l('Upload a banner image. If no image is selected, a default placeholder will be used.'),
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 1 Title'),
-                        'name' => 'MTF_HOMEBANNER_TITLE_1',
-                    ],
-                    [
-                        'type' => 'textarea',
-                        'label' => $this->l('Banner 1 Caption'),
-                        'name' => 'MTF_HOMEBANNER_CAPTION_1',
-                        'autoload_rte' => true,
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 1 Link'),
-                        'name' => 'MTF_HOMEBANNER_LINK_1',
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 1 Link Title'),
-                        'name' => 'MTF_HOMEBANNER_LINK_1_TITLE',
-                    ],
-
-                    // Banner 2
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Display Banner 2'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_2_VISIBLE',
-                        'is_bool' => true,
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled')
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-                    [
-                        'type' => 'file',
-                        'label' => $this->l('Banner 2 Image'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_2',
-                        'display_image' => true,
-                        'image' => $this->displayCurrentBannerImage(2),
-                        'desc' => $this->l('Upload a banner image. If no image is selected, a default placeholder will be used.'),
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 2 Title'),
-                        'name' => 'MTF_HOMEBANNER_TITLE_2',
-                    ],
-                    [
-                        'type' => 'textarea',
-                        'label' => $this->l('Banner 2 Caption'),
-                        'name' => 'MTF_HOMEBANNER_CAPTION_2',
-                        'autoload_rte' => true,
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 2 Link'),
-                        'name' => 'MTF_HOMEBANNER_LINK_2',
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 2 Link Title'),
-                        'name' => 'MTF_HOMEBANNER_LINK_2_TITLE',
-                    ],
-
-                    // Banner 3
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Display Banner 3'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_3_VISIBLE',
-                        'is_bool' => true,
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled')
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-                    [
-                        'type' => 'file',
-                        'label' => $this->l('Banner 3 Image'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_3',
-                        'display_image' => true,
-                        'image' => $this->displayCurrentBannerImage(3),
-                        'desc' => $this->l('Upload a banner image. If no image is selected, a default placeholder will be used.'),
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 3 Title'),
-                        'name' => 'MTF_HOMEBANNER_TITLE_3',
-                    ],
-                    [
-                        'type' => 'textarea',
-                        'label' => $this->l('Banner 3 Caption'),
-                        'name' => 'MTF_HOMEBANNER_CAPTION_3',
-                        'autoload_rte' => true,
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 3 Link'),
-                        'name' => 'MTF_HOMEBANNER_LINK_3',
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 3 Link Title'),
-                        'name' => 'MTF_HOMEBANNER_LINK_3_TITLE',
-                    ],
-
-                    // Banner 4
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Display Banner 4'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_4_VISIBLE',
-                        'is_bool' => true,
-                        'values' => [
-                            [
-                                'id' => 'active_on',
-                                'value' => true,
-                                'label' => $this->l('Enabled')
-                            ],
-                            [
-                                'id' => 'active_off',
-                                'value' => false,
-                                'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-                    [
-                        'type' => 'file',
-                        'label' => $this->l('Banner 4 Image'),
-                        'name' => 'MTF_HOMEBANNER_IMAGE_4',
-                        'display_image' => true,
-                        'image' => $this->displayCurrentBannerImage(4),
-                        'desc' => $this->l('Upload a banner image. If no image is selected, a default placeholder will be used.'),
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 4 Title'),
-                        'name' => 'MTF_HOMEBANNER_TITLE_4',
-                    ],
-                    [
-                        'type' => 'textarea',
-                        'label' => $this->l('Banner 4 Caption'),
-                        'name' => 'MTF_HOMEBANNER_CAPTION_4',
-                        'autoload_rte' => true,
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 4 Link'),
-                        'name' => 'MTF_HOMEBANNER_LINK_4',
-                    ],
-                    [
-                        'type' => 'text',
-                        'label' => $this->l('Banner 4 Link Title'),
-                        'name' => 'MTF_HOMEBANNER_LINK_4_TITLE',
-                    ],
-                ],
-                'submit' => [
-                    'title' => $this->l('Save'),
-                ],
+            ],
+            [
+                'type' => 'file',
+                'label' => $this->l('Banner ' . $num . ' Image'),
+                'name' => 'MTF_HOMEBANNER_IMAGE_' . $num,
+                'display_image' => true,
+                'image' => $this->displayCurrentBannerImage($num),
+                'desc' => $this->l('Upload a banner image. If no image is selected, a default placeholder will be used.'),
+            ],
+            [
+                'type' => 'text',
+                'label' => $this->l('Banner ' . $num . ' Title'),
+                'name' => 'MTF_HOMEBANNER_TITLE_' . $num,
+            ],
+            [
+                'type' => 'textarea',
+                'label' => $this->l('Banner ' . $num . ' Caption'),
+                'name' => 'MTF_HOMEBANNER_CAPTION_' . $num,
+                'autoload_rte' => true,
+            ],
+            [
+                'type' => 'text',
+                'label' => $this->l('Banner ' . $num . ' Link'),
+                'name' => 'MTF_HOMEBANNER_LINK_' . $num,
+            ],
+            [
+                'type' => 'text',
+                'label' => $this->l('Banner ' . $num . ' Link Title'),
+                'name' => 'MTF_HOMEBANNER_LINK_' . $num . '_TITLE',
+                'desc' => $this->l('Used for the "Voir les produits" button text. Leave empty to use default.'),
             ],
         ];
     }
@@ -464,6 +397,18 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                 $this->confirmations[] = $this->l('Image successfully deleted.');
             }
         }
+    }
+
+    /**
+     * Add JS and CSS for admin interface
+     */
+    public function setMedia($isNewTheme = false)
+    {
+        parent::setMedia($isNewTheme);
+
+        // Add admin CSS and JS
+        $this->addCSS(_MODULE_DIR_ . $this->module->name . '/assets/css/admin.css');
+        $this->addJS(_MODULE_DIR_ . $this->module->name . '/assets/js/admin.js');
     }
 
     /**

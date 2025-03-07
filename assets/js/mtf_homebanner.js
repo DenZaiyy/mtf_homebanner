@@ -7,6 +7,74 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Initialize slider if it exists
+    if ($(".mtf-homebanner-slider").length) {
+        $(".mtf-homebanner-slider")
+            .on("init", function () {
+                // Force equal heights after initialization
+                var maxHeight = 0;
+                $(".mtf-slider-item").each(function () {
+                    if ($(this).height() > maxHeight) {
+                        maxHeight = $(this).height();
+                    }
+                });
+                $(".mtf-slider-item").height(maxHeight);
+            })
+            .slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: parseInt(
+                    $(".mtf-homebanner-slider").data("columns") || 3
+                ),
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                adaptiveHeight: false, // Important! Don't allow adaptive height
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: Math.min(
+                                parseInt(
+                                    $(".mtf-homebanner-slider").data(
+                                        "columns"
+                                    ) || 3
+                                ),
+                                3
+                            ),
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: Math.min(
+                                parseInt(
+                                    $(".mtf-homebanner-slider").data(
+                                        "columns"
+                                    ) || 3
+                                ),
+                                2
+                            ),
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        },
+                    },
+                ],
+            });
+
+        // Re-calculate heights on window resize
+        $(window).resize(function () {
+            $(".mtf-homebanner-slider").slick("resize");
+        });
+    }
     // Add hover effects for banners
     const bannerButtons = document.querySelectorAll(".mtf-banner-button");
 
