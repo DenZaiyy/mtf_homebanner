@@ -155,6 +155,26 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                     'icon' => 'icon-cogs',
                 ],
                 'input' => [
+                    // Enable banners
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Enable module'),
+                        'name' => 'MTF_HOMEBANNER_ENABLE',
+                        'is_bool' => true,
+                        'values' => [
+                            [
+                                'id' => 'active_on',
+                                'value' => true,
+                                'label' => $this->l('Enabled')
+                            ],
+                            [
+                                'id' => 'active_off',
+                                'value' => false,
+                                'label' => $this->l('Disabled')
+                            ]
+                        ],
+                    ],
+
                     // Layout configuration
                     [
                         'type' => 'select',
@@ -452,6 +472,7 @@ class AdminMtfHomeBannerController extends ModuleAdminController
     private function getConfigFormValues()
     {
         return [
+            'MTF_HOMEBANNER_ENABLE' => Configuration::get('MTF_HOMEBANNER_ENABLE'),
             'MTF_HOMEBANNER_DISPLAY' => Configuration::get('MTF_HOMEBANNER_DISPLAY'),
             'MTF_HOMEBANNER_DISPLAY_COLUMN' => Configuration::get('MTF_HOMEBANNER_DISPLAY_COLUMN'),
 

@@ -51,6 +51,7 @@ class Mtf_HomeBanner extends Module
      */
     public function install()
     {
+        Configuration::updateValue('MTF_HOMEBANNER_ENABLE', 0);
         Configuration::updateValue('MTF_HOMEBANNER_IMAGE_1', null);
         Configuration::updateValue('MTF_HOMEBANNER_TITLE_1', '');
         Configuration::updateValue('MTF_HOMEBANNER_CAPTION_1', '');
@@ -95,6 +96,7 @@ class Mtf_HomeBanner extends Module
      */
     public function uninstall()
     {
+        Configuration::deleteByName('MTF_HOMEBANNER_ENABLE');
         Configuration::deleteByName('MTF_HOMEBANNER_IMAGE_1');
         Configuration::deleteByName('MTF_HOMEBANNER_TITLE_1');
         Configuration::deleteByName('MTF_HOMEBANNER_CAPTION_1');
@@ -290,6 +292,7 @@ class Mtf_HomeBanner extends Module
             'display_type' => Configuration::get('MTF_HOMEBANNER_DISPLAY'),
             'display_columns' => Configuration::get('MTF_HOMEBANNER_DISPLAY_COLUMN'),
             'active_banners' => $activeBanners,
+            'enable' => Configuration::get('MTF_HOMEBANNER_ENABLE')
         ]);
 
         return $this->display(__FILE__, 'views/templates/hook/mtf_homebanner.tpl');
