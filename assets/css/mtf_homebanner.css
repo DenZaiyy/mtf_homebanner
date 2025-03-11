@@ -150,22 +150,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.01),
-        rgba(0, 0, 0, 0.4)
-    );
+    background: rgba(0, 0, 0, 0.25);
     color: #fff;
     transition: all 0.3s ease;
 }
 
 .mtf-banner-item:hover .mtf-banner-content {
     transition: background 0.3s ease;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0.8)
-    );
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .mtf-banner-title {
@@ -175,6 +167,7 @@
     line-height: 1.2;
     max-width: 80%;
     color: inherit;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
 .mtf-banner-caption {
@@ -197,7 +190,7 @@
     color: #000;
     border-radius: 30px;
     padding: 8px 20px;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     text-decoration: none;
