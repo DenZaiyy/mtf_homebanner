@@ -222,27 +222,27 @@ class Mtf_HomeBanner extends Module
         }
 
         $this->context->controller->registerStylesheet(
-            'mtf-homebanner-style',
+            $this->name . '-style',
             'modules/' . $this->name . '/assets/css/mtf_homebanner.css',
             ['media' => 'all', 'priority' => 150]
         );
 
         if (Configuration::get('MTF_HOMEBANNER_DISPLAY') == 'slider') {
             $this->context->controller->registerStylesheet(
-                'mtf-homebanner-slick-style',
+                $this->name . '-slick-style',
                 'modules/' . $this->name . '/assets/css/slick.css',
                 ['media' => 'all', 'priority' => 150]
             );
 
             $this->context->controller->registerJavascript(
-                'mtf-homebanner-slick-js',
+                $this->name . '-slick-js',
                 'modules/' . $this->name . '/assets/js/slick.min.js',
                 ['position' => 'bottom', 'priority' => 150]
             );
         }
 
         $this->context->controller->registerJavascript(
-            'mtf-homebanner-js',
+            $this->name . '-js',
             'modules/' . $this->name . '/assets/js/mtf_homebanner.js',
             ['position' => 'bottom', 'priority' => 151]
         );

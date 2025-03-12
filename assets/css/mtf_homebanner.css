@@ -46,85 +46,86 @@
     /* transform: translateY(-5px); */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+@media (min-width: 992px) {
+    .mtf-homebanner-grid.cols-2:has(> :last-child:nth-child(3)) {
+        .mtf-banner-item:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
 
-.mtf-homebanner-grid.cols-2:has(> :last-child:nth-child(3)) {
-    .mtf-banner-item:nth-child(1) {
-        grid-column: 1;
-        grid-row: 1 / span 2;
+        .mtf-banner-item:nth-child(2) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .mtf-banner-item:nth-child(3) {
+            grid-column: 2;
+            grid-row: 2;
+        }
     }
 
-    .mtf-banner-item:nth-child(2) {
-        grid-column: 2;
-        grid-row: 1;
+    .mtf-homebanner-grid.cols-2:has(> :last-child:nth-child(4)) {
+        .mtf-banner-item:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .mtf-banner-item:nth-child(2) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .mtf-banner-item:nth-child(3) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .mtf-banner-item:nth-child(4) {
+            grid-column: 2;
+            grid-row: 2;
+        }
+        .mtf-banner-image img {
+            max-height: 400px;
+        }
     }
 
-    .mtf-banner-item:nth-child(3) {
-        grid-column: 2;
-        grid-row: 2;
-    }
-}
+    .mtf-homebanner-grid.cols-3:has(> :last-child:nth-child(3)) {
+        .mtf-banner-item:nth-child(1) {
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+        }
 
-.mtf-homebanner-grid.cols-2:has(> :last-child:nth-child(4)) {
-    .mtf-banner-item:nth-child(1) {
-        grid-column: 1;
-        grid-row: 1;
-    }
+        .mtf-banner-item:nth-child(2) {
+            grid-column: 3;
+            grid-row: 1;
+        }
 
-    .mtf-banner-item:nth-child(2) {
-        grid-column: 1;
-        grid-row: 2;
-    }
-
-    .mtf-banner-item:nth-child(3) {
-        grid-column: 2;
-        grid-row: 1;
+        .mtf-banner-item:nth-child(3) {
+            grid-column: 3;
+            grid-row: 2;
+        }
     }
 
-    .mtf-banner-item:nth-child(4) {
-        grid-column: 2;
-        grid-row: 2;
-    }
-    .mtf-banner-image img {
-        max-height: 400px;
-    }
-}
+    .mtf-homebanner-grid.cols-3:has(> :last-child:nth-child(4)) {
+        .mtf-banner-item:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
 
-.mtf-homebanner-grid.cols-3:has(> :last-child:nth-child(3)) {
-    .mtf-banner-item:nth-child(1) {
-        grid-column: 1 / span 2;
-        grid-row: 1 / span 2;
-    }
+        .mtf-banner-item:nth-child(2) {
+            grid-column: 2;
+            grid-row: 1;
+        }
 
-    .mtf-banner-item:nth-child(2) {
-        grid-column: 3;
-        grid-row: 1;
-    }
+        .mtf-banner-item:nth-child(3) {
+            grid-column: 2;
+            grid-row: 2;
+        }
 
-    .mtf-banner-item:nth-child(3) {
-        grid-column: 3;
-        grid-row: 2;
-    }
-}
-
-.mtf-homebanner-grid.cols-3:has(> :last-child:nth-child(4)) {
-    .mtf-banner-item:nth-child(1) {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-    }
-
-    .mtf-banner-item:nth-child(2) {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    .mtf-banner-item:nth-child(3) {
-        grid-column: 2;
-        grid-row: 2;
-    }
-
-    .mtf-banner-item:nth-child(4) {
-        grid-column: 3;
-        grid-row: 1 / span 2;
+        .mtf-banner-item:nth-child(4) {
+            grid-column: 3;
+            grid-row: 1 / span 2;
+        }
     }
 }
 
@@ -257,13 +258,15 @@
 
 /* Responsive */
 @media (max-width: 991px) {
-    .mtf-homebanner-grid.cols-4,
     .mtf-homebanner-grid.cols-3 {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .mtf-banner-title {
         font-size: 1.4rem;
+    }
+    .mtf-banner-image img {
+        max-height: 200px;
     }
 }
 
@@ -274,7 +277,6 @@
 }
 
 @media (max-width: 575px) {
-    .mtf-homebanner-grid.cols-4,
     .mtf-homebanner-grid.cols-3,
     .mtf-homebanner-grid.cols-2 {
         grid-template-columns: 1fr;
@@ -290,13 +292,12 @@
 
     .mtf-banner-image {
         min-height: 200px;
+        max-height: 200px;
     }
 }
 
 /* Handle special case of 1-2 banners in 3-4 column layout */
 .mtf-homebanner-grid.cols-3:has(.mtf-banner-item:only-child),
-.mtf-homebanner-grid.cols-3:has(.mtf-banner-item:nth-child(2):last-child),
-.mtf-homebanner-grid.cols-4:has(.mtf-banner-item:only-child),
-.mtf-homebanner-grid.cols-4:has(.mtf-banner-item:nth-child(2):last-child) {
+.mtf-homebanner-grid.cols-3:has(.mtf-banner-item:nth-child(2):last-child) {
     grid-template-columns: repeat(2, 1fr);
 }
