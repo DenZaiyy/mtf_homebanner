@@ -221,6 +221,11 @@ class Mtf_HomeBanner extends Module
             return;
         }
 
+        // Charger seulement sur la page d'accueil
+        if ($this->context->controller->php_self !== 'index') {
+            return;
+        }
+
         $this->context->controller->registerStylesheet(
             $this->name . '-style',
             'modules/' . $this->name . '/assets/css/mtf_homebanner.css',
