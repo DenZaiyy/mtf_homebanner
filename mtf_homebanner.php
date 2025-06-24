@@ -27,7 +27,7 @@ class Mtf_HomeBanner extends Module
     {
         $this->name = 'mtf_homebanner';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
+        $this->version = '1.0.2';
         $this->author = 'MTFibertech';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = [

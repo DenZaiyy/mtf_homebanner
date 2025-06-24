@@ -13,7 +13,7 @@
 * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *}
 {if $enable}
-    <div class="mtf-homebanner-container">
+    <div class="mtf-homebanner-container" id="mtf-homebanner">
         {if $display_type == 'grid'}
             <div class="mtf-homebanner-grid cols-{$display_columns}">
                 {foreach from=$banners item=banner}
