@@ -76,6 +76,10 @@ class AdminMtfHomeBannerController extends ModuleAdminController
         $helper->currentIndex = $this->context->link->getAdminLink('AdminMtfHomeBanner', false);
         $helper->token = Tools::getAdminTokenLite('AdminMtfHomeBanner');
 
+        $helper->fields_value = $this->getConfigFormValues();
+        $helper->languages_list = $this->context->controller->getLanguages();
+        $helper->id_lang = $this->context->language->id;
+
         $helper->tpl_vars = [
             'fields_value' => $this->getConfigFormValues(),
             'languages' => $this->context->controller->getLanguages(),
@@ -105,11 +109,15 @@ class AdminMtfHomeBannerController extends ModuleAdminController
             }
         }
 
-        // Handle image uploads
-        $this->handleImageUpload(1);
-        $this->handleImageUpload(2);
-        $this->handleImageUpload(3);
-        $this->handleImageUpload(4);
+        // Handle image uploads - only process if not already processed
+        static $uploads_processed = false;
+        if (!$uploads_processed) {
+            $this->handleImageUpload(1);
+            $this->handleImageUpload(2);
+            $this->handleImageUpload(3);
+            $this->handleImageUpload(4);
+            $uploads_processed = true;
+        }
     }
 
     /**
@@ -121,15 +129,54 @@ class AdminMtfHomeBannerController extends ModuleAdminController
             isset($_FILES['MTF_HOMEBANNER_IMAGE_' . $num]) &&
             !empty($_FILES['MTF_HOMEBANNER_IMAGE_' . $num]['name'])
         ) {
+            $uploadedFile = $_FILES['MTF_HOMEBANNER_IMAGE_' . $num];
+
+            // Check for upload errors
+            if ($uploadedFile['error'] !== UPLOAD_ERR_OK) {
+                $this->errors[] = $this->getUploadErrorMessage($uploadedFile['error'], $num);
+                return;
+            }
+
+            // Validate file size (max 2MB)
+            $maxSize = 2 * 1024 * 1024; // 2MB
+            if ($uploadedFile['size'] > $maxSize) {
+                $this->errors[] = sprintf($this->l('File too large for Banner %d. Maximum size is 2MB.'), $num);
+                return;
+            }
+
+            // Read file data directly (bypasses tmp file issues)
+            $fileData = null;
+            if (!empty($uploadedFile['tmp_name']) && file_exists($uploadedFile['tmp_name'])) {
+                $fileData = file_get_contents($uploadedFile['tmp_name']);
+            }
+            
+            if ($fileData === null || $fileData === false) {
+                $this->errors[] = sprintf($this->l('Could not read uploaded file for Banner %d'), $num);
+                return;
+            }
+
+            // Validate file type using finfo (works with file data)
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $fileType = finfo_buffer($finfo, $fileData);
+            finfo_close($finfo);
+            
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!in_array($fileType, $allowedTypes)) {
+                $this->errors[] = sprintf($this->l('Invalid file type for Banner %d. Only JPG, PNG, GIF and WebP are allowed.'), $num);
+                return;
+            }
 
             // Create img directory if it doesn't exist
             $uploadDir = _PS_MODULE_DIR_ . $this->module->name . '/views/img/';
             if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
+                if (!mkdir($uploadDir, 0755, true)) {
+                    $this->errors[] = sprintf($this->l('Cannot create upload directory for Banner %d'), $num);
+                    return;
+                }
             }
 
             // Clean filename and ensure uniqueness
-            $fileName = time() . '_' . Tools::strtolower(preg_replace('/[^A-Za-z0-9\-\.]/', '', $_FILES['MTF_HOMEBANNER_IMAGE_' . $num]['name']));
+            $fileName = time() . '_' . Tools::strtolower(preg_replace('/[^A-Za-z0-9\-\.]/', '', $uploadedFile['name']));
             $uploadFile = $uploadDir . $fileName;
 
             // Delete old image if exists
@@ -138,10 +185,37 @@ class AdminMtfHomeBannerController extends ModuleAdminController
                 unlink($uploadDir . $oldImage);
             }
 
-            // Upload the new image
-            if (move_uploaded_file($_FILES['MTF_HOMEBANNER_IMAGE_' . $num]['tmp_name'], $uploadFile)) {
+            // Write file data directly to destination
+            if (file_put_contents($uploadFile, $fileData) !== false) {
                 Configuration::updateValue('MTF_HOMEBANNER_IMAGE_' . $num, $fileName);
+                $this->confirmations[] = sprintf($this->l('Banner %d image uploaded successfully'), $num);
+            } else {
+                $this->errors[] = sprintf($this->l('Failed to save uploaded file for Banner %d'), $num);
             }
+        }
+    }
+
+    /**
+     * Get upload error message
+     */
+    private function getUploadErrorMessage($errorCode, $num)
+    {
+        switch ($errorCode) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                return sprintf($this->l('File too large for Banner %d'), $num);
+            case UPLOAD_ERR_PARTIAL:
+                return sprintf($this->l('File partially uploaded for Banner %d'), $num);
+            case UPLOAD_ERR_NO_FILE:
+                return sprintf($this->l('No file uploaded for Banner %d'), $num);
+            case UPLOAD_ERR_NO_TMP_DIR:
+                return sprintf($this->l('Missing temporary directory for Banner %d'), $num);
+            case UPLOAD_ERR_CANT_WRITE:
+                return sprintf($this->l('Failed to write file to disk for Banner %d'), $num);
+            case UPLOAD_ERR_EXTENSION:
+                return sprintf($this->l('File upload stopped by extension for Banner %d'), $num);
+            default:
+                return sprintf($this->l('Unknown upload error for Banner %d'), $num);
         }
     }
 

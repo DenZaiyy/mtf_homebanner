@@ -27,7 +27,7 @@
                                 <div class="mtf-banner-content">
                                     <div>
                                         {if $banner.title}
-                                            <h3 class="mtf-banner-title">{$banner.title}</h3>
+                                            <div class="mtf-banner-title">{$banner.title}</div>
                                         {/if}
                                         {if $banner.caption}
                                             <div class="mtf-banner-caption">{$banner.caption nofilter}</div>
